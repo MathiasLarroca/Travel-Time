@@ -6,30 +6,69 @@ async function loadData() {
 //use init to initialize other functions
 async function init() {
     const destinations = await loadData();
-    console.log(Object.keys(destinations));
-    console.log(destinations);
-    eventListeners();
+    eventListeners(destinations);
 }
 
-function eventListeners() {
+function eventListeners(destinations) {
     const SearchQuery = document.getElementById('search_text');
+    const Results = document.getElementById('results');
     const SearchBtn = document.getElementById('search_btn');
     const ClearBtn = document.getElementById('clear_btn');
 
     SearchBtn.addEventListener('click', () => {
+
         const validQueries = {
-            countries : [],
-            temples : ['temple', 'temples'],
-            beaches : ['beach', 'beaches'],
+            countries: ['australia', 'japan', 'brazil'],
+            temples: ['temple', 'temples'],
+            beaches: ['beach', 'beaches'],
         };
         let query = SearchQuery.value.toLowerCase();
-        Object.keys(validQueries).forEach(key => {
-            if (validQueries[key].some((value) => value === query)) {
-                console.log(key)
-            }
-        });
-    })
+        let found = false
 
+        Object.keys(validQueries).forEach(key => {
+
+            if (validQueries[key].some((value) => value === query)) {
+                found = true
+                switch (key) {
+                    case 'countries':
+                        const country = destinations[key].find(q => q.name.toLowerCase() === query);
+                        Results.replaceChildren();
+                        country.cities.forEach(cities => {showResults(cities, Results)});
+                        break;
+                    case 'temples':
+                        Results.replaceChildren();
+                        destinations[key].forEach(cities => {showResults(cities, Results)});
+                        break;
+                    case 'beaches':
+                        Results.replaceChildren();
+                        destinations[key].forEach(cities => {showResults(cities, Results)});
+                        break;
+                };
+            };
+
+        });
+        //Invalid search statement
+        if (!found) {console.log('Invalid')}
+
+    });
+
+    ClearBtn.addEventListener('click', () => SearchQuery.value = '');
+
+}
+
+function showResults (cities, results) {
+    const Option = document.createElement('article');
+    const OptionName = document.createElement('h3');
+    const OptionImg = document.createElement('img');
+    const OptionDesc = document.createElement('p');
+    Option.classList.add('each_result');
+
+    results.appendChild(Option);
+    Option.append(OptionName, OptionImg, OptionDesc);
+
+    OptionName.textContent = cities.name;
+    OptionImg.src = cities.imageUrl;
+    OptionDesc.textContent = cities.description;
 }
 
 init();
