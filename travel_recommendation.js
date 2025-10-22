@@ -28,19 +28,17 @@ function eventListeners(destinations) {
         Object.keys(validQueries).forEach(key => {
 
             if (validQueries[key].some((value) => value === query)) {
+                Results.replaceChildren();
                 found = true
                 switch (key) {
                     case 'countries':
                         const country = destinations[key].find(q => q.name.toLowerCase() === query);
-                        Results.replaceChildren();
                         country.cities.forEach(cities => {showResults(cities, Results)});
                         break;
                     case 'temples':
-                        Results.replaceChildren();
                         destinations[key].forEach(cities => {showResults(cities, Results)});
                         break;
                     case 'beaches':
-                        Results.replaceChildren();
                         destinations[key].forEach(cities => {showResults(cities, Results)});
                         break;
                 };
