@@ -28,8 +28,10 @@ function eventListeners(destinations) {
         Object.keys(validQueries).forEach(key => {
 
             if (validQueries[key].some((value) => value === query)) {
+
                 Results.replaceChildren();
                 found = true
+
                 switch (key) {
                     case 'countries':
                         const country = destinations[key].find(q => q.name.toLowerCase() === query);
@@ -42,11 +44,12 @@ function eventListeners(destinations) {
                         destinations[key].forEach(cities => {showResults(cities, Results)});
                         break;
                 };
+
             };
 
         });
         //Invalid search statement
-        if (!found) {console.log('Invalid')}
+        if (!found) {alert('Invalid')};
 
     });
 
@@ -55,6 +58,7 @@ function eventListeners(destinations) {
 }
 
 function showResults (cities, results) {
+
     const Option = document.createElement('article');
     const OptionName = document.createElement('h3');
     const OptionImg = document.createElement('img');
@@ -67,6 +71,7 @@ function showResults (cities, results) {
     OptionName.textContent = cities.name;
     OptionImg.src = cities.imageUrl;
     OptionDesc.textContent = cities.description;
+
 }
 
 init();
