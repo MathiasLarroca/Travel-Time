@@ -55,8 +55,10 @@ function eventListeners(destinations) {
 
     ClearBtn.addEventListener('click', () => SearchQuery.value = '');
 
-    SearchQuery.addEventListener('keyup', (e) => {
-        if (e.code == 13) {
+    //make a function for showing results
+
+    SearchQuery.addEventListener('keypress', (e) => {
+        if (e.key == "Enter") {
             const validQueries = {
                 countries: ['australia', 'japan', 'brazil'],
                 temples: ['temple', 'temples'],
