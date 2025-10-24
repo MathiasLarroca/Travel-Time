@@ -3,6 +3,9 @@ body {
     background-size: cover;
     margin: 0%;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 header {
@@ -30,11 +33,15 @@ a {
 
 #home_intro {
     background-color: rgba(250, 235, 215, 0.486);
-    width: 50vw;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+#results {
+    width: 100%;
 }
 
 .each_result {
@@ -43,4 +50,37 @@ a {
     border: solid;
     border-width: 1px;
     border-color: black;
+    background-color: antiquewhite;
+    height: 35vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    width: 25vw;
+    justify-self: center;
+    margin-left: auto;
+}
+
+.each_result img {
+    height: 80%;
+}
+
+#about_intro {
+    background-color: rgba(250, 235, 215, 0.599);
+}
+
+#our_team {
+    display: flex;
+    max-height: fit-content;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.team {
+    margin: 1rem;
+    background-color: rgba(250, 235, 215, 0.599);
+    height: 50%;
+}
+
+.team img {
+    width: 100px;
 }
