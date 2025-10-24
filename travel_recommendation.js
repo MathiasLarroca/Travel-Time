@@ -35,13 +35,13 @@ function eventListeners(destinations) {
                 switch (key) {
                     case 'countries':
                         const country = destinations[key].find(q => q.name.toLowerCase() === query);
-                        country.cities.forEach(cities => {showResults(cities, Results)});
+                        country.cities.forEach(cities => { showResults(cities, Results) });
                         break;
                     case 'temples':
-                        destinations[key].forEach(cities => {showResults(cities, Results)});
+                        destinations[key].forEach(cities => { showResults(cities, Results) });
                         break;
                     case 'beaches':
-                        destinations[key].forEach(cities => {showResults(cities, Results)});
+                        destinations[key].forEach(cities => { showResults(cities, Results) });
                         break;
                 };
 
@@ -49,15 +49,54 @@ function eventListeners(destinations) {
 
         });
         //Invalid search statement
-        if (!found) {alert('Invalid')};
+        if (!found) { alert('Invalid') };
 
     });
 
     ClearBtn.addEventListener('click', () => SearchQuery.value = '');
 
+    SearchQuery.addEventListener('keyup', (e) => {
+        if (e.code == 13) {
+            const validQueries = {
+                countries: ['australia', 'japan', 'brazil'],
+                temples: ['temple', 'temples'],
+                beaches: ['beach', 'beaches'],
+            };
+            let query = SearchQuery.value.toLowerCase();
+            let found = false
+
+            Object.keys(validQueries).forEach(key => {
+
+                if (validQueries[key].some((value) => value === query)) {
+
+                    Results.replaceChildren();
+                    found = true
+
+                    switch (key) {
+                        case 'countries':
+                            const country = destinations[key].find(q => q.name.toLowerCase() === query);
+                            country.cities.forEach(cities => { showResults(cities, Results) });
+                            break;
+                        case 'temples':
+                            destinations[key].forEach(cities => { showResults(cities, Results) });
+                            break;
+                        case 'beaches':
+                            destinations[key].forEach(cities => { showResults(cities, Results) });
+                            break;
+                    };
+
+                };
+
+            });
+            //Invalid search statement
+            if (!found) { alert('Invalid') };
+        }
+
+    });
+
 }
 
-function showResults (cities, results) {
+function showResults(cities, results) {
 
     const Option = document.createElement('article');
     const OptionName = document.createElement('h3');
